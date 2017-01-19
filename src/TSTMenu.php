@@ -46,30 +46,15 @@ class TSTMenu extends SC_Plugin_Base {
     function disable($plugins) {
         // nop
     }
-
-    function register($helper_plugin) {
-        // nop
-    }
-    
-    function preProcess($page) {
-        // nop
-    }
-    
-    function process($page) {
-        // nop
-    }
 	
     function prefilterTransform(&$source, LC_Page_Ex $objPage, $filename) {
-    	switch ($objPage->arrPageLayout['device_type_id']) {
-    		case DEVICE_TYPE_ADMIN:
-    			self::prefilterTransformAdmin($source, $objPage, $filename);
-    	}
+    	self::prefilterTransformAdmin($source, $objPage, $filename);
     }
     
     private function prefilterTransformAdmin(&$source, LC_Page_Ex $objPage, $filename) {
-    	if (strcmp($filename, 'home.tpl') === 0) {
+    	if (strcmp($filename, TEMPLATE_ADMIN_REALDIR . 'basis/subnavi.tpl') === 0) {
     		$objTransform = new SC_Helper_Transform_Ex($source);
-    		$objTransform->select('#home')->appendFirst(file_get_contents(PLUGIN_UPLOAD_REALDIR . self::PLUGIN_TEMPLATES_PATH . 'admin/plg_tstmenu_subnavi.tpl'));
+    		$objTransform->select('ul.level1')->appendChild(file_get_contents(PLUGIN_UPLOAD_REALDIR . self::PLUGIN_TEMPLATES_PATH . 'admin/plg_tstmenu_subnavi.tpl'));
     		$source = $objTransform->getHTML();
     	}
 	}

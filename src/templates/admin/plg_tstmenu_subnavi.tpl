@@ -1,0 +1,1 @@
+<li<!--{if $tpl_subno == 'tstmenu'}--> class="on"<!--{/if}--> id="navi-tstmenu"><a href="<!--{$smarty.const.ROOT_URLPATH}--><!--{$smarty.const.ADMIN_DIR}-->tstmenu/plg_TSTMenu_LC_Page_Admin_Sample_Index.php"><span>サンプルメニュー</span></a></li>
