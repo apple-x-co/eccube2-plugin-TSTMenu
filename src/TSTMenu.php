@@ -31,19 +31,19 @@ class TSTMenu extends SC_Plugin_Base {
 	
 	const PLUGIN_TEMPLATES_PATH = 'TSTMenu/templates/';
 	
-    function install($plugins) {
-        // nop
+    function install($arrPlugin) {
+    	self::copyFiles($arrPlugin);
 	}
     
-    function uninstall($plugins) {
+    function uninstall($arrPlugin) {
+    	self::deleteFiles($arrPlugin);
+    }
+    
+    function enable($arrPlugin) {
         // nop
     }
     
-    function enable($plugins) {
-        // nop
-    }
-    
-    function disable($plugins) {
+    function disable($arrPlugin) {
         // nop
     }
 	
@@ -51,12 +51,20 @@ class TSTMenu extends SC_Plugin_Base {
     	self::prefilterTransformAdmin($source, $objPage, $filename);
     }
     
-    private function prefilterTransformAdmin(&$source, LC_Page_Ex $objPage, $filename) {
+    private static function prefilterTransformAdmin(&$source, LC_Page_Ex $objPage, $filename) {
     	if (strcmp($filename, TEMPLATE_ADMIN_REALDIR . 'basis/subnavi.tpl') === 0) {
     		$objTransform = new SC_Helper_Transform_Ex($source);
     		$objTransform->select('ul.level1')->appendChild(file_get_contents(PLUGIN_UPLOAD_REALDIR . self::PLUGIN_TEMPLATES_PATH . 'admin/plg_tstmenu_subnavi.tpl'));
     		$source = $objTransform->getHTML();
     	}
+	}
+	
+	private static function copyFiles($arrPlugin) {
+		copy(PLUGIN_UPLOAD_REALDIR . $arrPlugin['plugin_code'] . '/html/admin/sample/plg_TSTMenu_Sample_index.php', HTML_REALDIR . ADMIN_DIR . 'sample/plg_TSTMenu_Sample_index.php');
+	}
+	
+	private static function deleteFiles($arrPlugin) {
+		SC_Helper_FileManager_Ex::deleteFile(HTML_REALDIR . ADMIN_DIR . 'sample/plg_TSTMenu_Sample_index.php');
 	}
 }
 ?>
