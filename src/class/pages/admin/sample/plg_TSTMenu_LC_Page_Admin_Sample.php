@@ -38,7 +38,7 @@ class plg_TSTMenu_LC_Page_Admin_Sample_Index extends LC_Page_Admin_Ex {
      */
     function init() {
         parent::init();
-        $this->tpl_mainpage = PLUGIN_UPLOAD_REALDIR ."TSTMenu/templates/admin/sample/plg_TSTMenu_Sample_index.tpl";
+        $this->tpl_mainpage = PLUGIN_UPLOAD_REALDIR ."TSTMenu/templates/admin/sample/plg_TSTMenu_Sample.tpl";
         $this->tpl_mainno = 'basis';
         $this->tpl_subno = 'tstmenu';
         $this->tpl_maintitle = 'メインタイトル';
