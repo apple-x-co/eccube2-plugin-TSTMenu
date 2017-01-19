@@ -60,11 +60,25 @@ class TSTMenu extends SC_Plugin_Base {
 	}
 	
 	private static function copyFiles($arrPlugin) {
-		copy(PLUGIN_UPLOAD_REALDIR . $arrPlugin['plugin_code'] . '/html/admin/sample/plg_TSTMenu_Sample_index.php', HTML_REALDIR . ADMIN_DIR . 'sample/plg_TSTMenu_Sample_index.php');
+		if (!file_exists(HTML_REALDIR . ADMIN_DIR . 'sample/')) {
+			GC_Utils::gfPrintLog(__LINE__ . ': ディレクトリを作成します');
+			if (!mkdir(HTML_REALDIR . ADMIN_DIR . 'sample/')) {
+				GC_Utils::gfPrintLog(__LINE__ . ': ディレクトリの作成に失敗しました');
+			}
+		}
+		
+		GC_Utils::gfPrintLog(__LINE__ . ': ファイルをコピーします');
+		copy(PLUGIN_UPLOAD_REALDIR . $arrPlugin['plugin_code'] . '/html/admin/sample/plg_TSTMenu_Sample.php', HTML_REALDIR . ADMIN_DIR . 'sample/plg_TSTMenu_Sample.php');
 	}
 	
 	private static function deleteFiles($arrPlugin) {
-		SC_Helper_FileManager_Ex::deleteFile(HTML_REALDIR . ADMIN_DIR . 'sample/plg_TSTMenu_Sample_index.php');
+		SC_Helper_FileManager_Ex::deleteFile(HTML_REALDIR . ADMIN_DIR . 'sample/plg_TSTMenu_Sample.php');
+		
+		if (file_exists(HTML_REALDIR . ADMIN_DIR . 'sample/')) {
+			if (!SC_Helper_FileManager_Ex::sfDirChildExists(HTML_REALDIR . ADMIN_DIR . 'sample/')) {
+				SC_Helper_FileManager_Ex::deleteFile(HTML_REALDIR . ADMIN_DIR . 'sample/');
+			}
+		}
 	}
 }
 ?>

@@ -29,7 +29,7 @@ require_once CLASS_EX_REALDIR . 'page_extends/admin/LC_Page_Admin_Ex.php';
  * @author DAISY CO.,LTD.
  * @version $
  */
-class plg_TSTMenu_LC_Page_Admin_Sample_Index extends LC_Page_Admin_Ex {
+class plg_TSTMenu_LC_Page_Admin_Sample extends LC_Page_Admin_Ex {
 
     /**
      * Page を初期化する.
